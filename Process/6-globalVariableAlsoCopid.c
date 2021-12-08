@@ -2,22 +2,27 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+int a = 5;
+
 int main()
 {
-    pid_t pid, pidTwo;
+
+    //이 코드의 결과는 5이다.
+    //a변수도 fork를 하면 얕은 복사가 되어 다른 주소값을 가진다.
+    //this code's result is 5
+    //because the variable a is also copied shallowly when its forked
+
+    pid_t pid;
     pid = fork();
-    //할때마다 바뀐다.
-    //줄바꿈은 process를 wait 상태로 가게 만들 수도 있다.
-    //it makes different results every time
-    //line breaking \n may make process wait
     if (pid > 0)
     {
-        printf("hello im parent process \n pid= %d\n", pid);
-    }
-    else if (pid == 0)
-    {
-        printf("hello im child process \n pid= %d\n", pid);
+        wait(NULL);
+        printf("%d\n", a);
     }
 
+    if (pid == 0)
+    {
+        a += 10;
+    }
     return 0;
 }

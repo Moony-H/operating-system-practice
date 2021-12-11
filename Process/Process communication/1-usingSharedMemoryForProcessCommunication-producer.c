@@ -39,3 +39,4 @@ int main()
     sprintf(ptr, "%s", message1);
     ptr += strlen(message1);
     return 0;
+}
